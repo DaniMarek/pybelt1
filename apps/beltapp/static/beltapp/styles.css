@@ -1,0 +1,22 @@
+.container-fluid{
+	background-image: url(https://thepelikansperch.files.wordpress.com/2014/09/cork-wallpaper-25-wallpaper-background-hd.jpg);
+	color: black; 
+	padding-top: 70px;
+	padding-bottom: 70px;
+}
+p{
+	color: white;
+}
+form{
+	background-color: white;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.table{
+	background-color: white;
+}
+a{
+	background-color: white;
+	padding: 5px;
+	color: #ed710b;
+}
