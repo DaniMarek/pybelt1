@@ -8,4 +8,10 @@ urlpatterns = [
   url(r'^successlog$', views.successlog),
   url(r'^successreg$', views.successreg),
   url(r'^logout$', views.logout),
+  url(r'^fave/(?P<id>\d+)$', views.fave),
+  url(r'^remove/(?P<id>\d+)$', views.remove),
+  url(r'^new$', views.new),
+  url(r'^users$', views.users),
+  url(r'^main$', views.main),
+  # url(r'^main/(?P<id>\d+)$', views.main),
 ]

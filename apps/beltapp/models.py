@@ -52,6 +52,23 @@ class UserManager(models.Manager):
 			password = hashedpw,
 			)
 
+class QuoteManager(models.Manager):
+	def quote_validation(self, POSTdata):
+		errors = []
+		if len(POSTdata['author']) < 3:
+			errors.append('author name must be more than 3 characters')
+		if len(POSTdata['quote']) < 10:
+			errors.append('quote must be more than 10 characters')
+		return errors
+
+	def create_quote(self, POSTdata):
+		return Quote.objects.create(
+	  		author = POSTdata['author'],
+			quote = POSTdata['quote'],
+	  		)
+	# def add_fave(self, POSTdata):
+	# 	Quote.objects.favorite.add('POSTdata')
+
 class User(models.Model):
   first_name = models.CharField(max_length=255)
   last_name = models.CharField(max_length=255)
@@ -62,3 +79,16 @@ class User(models.Model):
 
   def __unicode__(self):
   	return  'first_name:{}, last_name:{}, email:{}, password:{}, id:{}'.format(self.first_name, self.last_name, self.email, self.password, self.id)
+
+class Quote(models.Model):
+  author = models.CharField(max_length=255)
+  quote = models.TextField(max_length=255)
+  user = models.ForeignKey(User, related_name="user")
+  favorite = models.ManyToManyField(User, related_name="faves")
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  objects=QuoteManager()
+
+  def __unicode__(self):
+  	return  'author:{}, quote:{}, favorite:{}, id:{}, user:{}'.format(self.author, self.quote, self.favorite, self.id, self.user)

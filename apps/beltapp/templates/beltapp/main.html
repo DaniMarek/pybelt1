@@ -13,33 +13,56 @@
 		<div class="container-fluid text-center">
 			<h1>{{request.session.msg}} {{user.first_name}} !</h1>
 			<a href="/logout">Logout</a>
-			<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Product (click to bid)</th>
-					<th>Seller</th>
-					<th>Top Bid</th>
-					<th>Time Remaining</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<form action="/new" method="POST">
-						{% csrf_token %}
-						{% for item in item %}
-					<tr>
-						<td><h4><a href="/bid/{{item.id}}">{{ item.item }}</a></h4></td>
-						<td><h4>{{ item.user.first_name }} {{ item.user.last_name }}</h4></td>
-						<td><h4>{{ item.price }}</h4></td>
-						<td><h4>{{ item.time_remaining.days }} Days</h4></td>
-						<td><a href="/delete/{{item.id}}">Delete</a></td>
-					</tr>
+			{% if messages %}
+			<div class="messages">
+        	{% for message in messages %}
+        		<p class="{{ message.tags }}">{{ message }}</p>
+        	{% endfor %}
+        	</div>
+        	{% endif %}
+        	<div class="row">
+        		<div class="col-sm-6">
+		        	<h2>Quotable Quotes</h2>
+		        		{% for x in quote %}
+		        	<form class="quote" action="/fave/{{x.id}}" method="POST">
+		        		{% csrf_token %}
+		        		
+		        		<div class='form-group'>
+		        			<h3>{{x.author}}: {{x.quote}} </h3>
+		        			<h5><a href="/users">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="favorite">Add to My List</button>
+						</div>
 						{% endfor %}
-					<button class="btn" type="submit" value="new">New Auction</button>
-					<h3>Your current wallet: {{user.wallet}}</h3>
-				</form>
-			</tbody>
-		</table>
+		        	</form>
+		        </div>
+		        <div class="col-sm-6">
+		        		{% for x in faves %}
+		        	<form class="quote" action="/remove/{{x.id}}" method="POST">
+		        		{% csrf_token %}
+		        		<div class='form-group'>
+		        			<h2>Your Favorites</h2>
+		        			<h3>{{x.author}}: {{x.quote}} </h3>
+		        			<h5><a href="/users">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="remove">Remove From My List</button>
+						</div>
+							{% endfor %}
+
+		        	</form>
+					<form action="/new" method="POST">
+							{% csrf_token %}
+						<h3>Contribute a Quote:</h3>
+						<div class='form-group'>
+							<label>Quoted By:</label>
+							<input type="text" class="form-control" name="author">
+						</div>
+						<div class='form-group'>
+							<label>Message:</label>
+							<input type="text" class="form-control" name="quote">
+						</div>
+						<div class='form-group'>
+							<button class="btn" type="submit" value="new">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
