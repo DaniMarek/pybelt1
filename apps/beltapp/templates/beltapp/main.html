@@ -29,7 +29,7 @@
 		        		
 		        		<div class='form-group'>
 		        			<h3>{{x.author}}: {{x.quote}} </h3>
-		        			<h5><a href="/users">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="favorite">Add to My List</button>
+		        			<h5><a href="/users/{{x.user.id}}">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="favorite">Add to My List</button>
 						</div>
 						{% endfor %}
 		        	</form>
@@ -41,7 +41,7 @@
 		        		<div class='form-group'>
 		        			<h2>Your Favorites</h2>
 		        			<h3>{{x.author}}: {{x.quote}} </h3>
-		        			<h5><a href="/users">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="remove">Remove From My List</button>
+		        			<h5><a href="/users/{{x.user.id}}">Posted by:{{x.user.first_name}}</a></h5><button class="btn" type="submit" value="remove">Remove From My List</button>
 						</div>
 							{% endfor %}
 

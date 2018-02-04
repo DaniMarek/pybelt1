@@ -71,8 +71,17 @@ def remove(request, id):
 		quote.favorite.remove(user)
 	return redirect('/main')
 
-def users(request):
-	return render(request, 'beltapp/third.html')
+def users(request, id):
+	user = User.objects.get(id=id)
+	quote = Quote.objects.filter(user=user)
+	count = quote.count()
+
+	context = {
+		'quote' : quote,
+		'user' : user,
+		'count' : count,
+	}
+	return render(request, 'beltapp/third.html', context)
 
 def new(request):
 	user = current_user(request)

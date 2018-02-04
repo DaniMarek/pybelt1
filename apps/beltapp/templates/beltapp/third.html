@@ -11,11 +11,14 @@
 	</head>
 	<body>
 		<div class="container-fluid text-center">
-			<h1>{{request.session.msg}} {{user.first_name}} !</h1>
-			<a href="/logout">Logout</a>
-			
-					<button class="btn" type="submit" value="new">New Auction</button>
-					<h3>Your current wallet: {{user.wallet}}</h3>
+			<a href="/logout">Logout</a>|<a href="/main">Dashboard</a>
+			<h5>Posts by: {{user.first_name}}</h5>
+			<h5>Count:{{count}}</h5>
+			{% for x in quote %}
+
+			<h5>{{x.author}}:{{x.quote}}</h5>
+
+			{% endfor %}
 			
 		</div>
 	</body>
